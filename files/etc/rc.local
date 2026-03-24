@@ -1,0 +1,11 @@
+# /etc/rc.local — runs once at the end of boot (after all init scripts)
+# OpenWrt executes this via /etc/init.d/boot as the final step.
+
+# Ensure OpenSSH server is enabled and running
+/etc/init.d/sshd enable 2>/dev/null
+/etc/init.d/sshd start 2>/dev/null
+
+# Bring up wireless (triggers netifd to configure radio0 / wlan0 AP)
+wifi up
+
+exit 0

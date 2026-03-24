@@ -1,0 +1,41 @@
+# /etc/config/wireless — UCI wireless configuration
+#
+# UCI convention:
+#   "config wifi-device" defines a physical radio (phy)
+#   "config wifi-iface"  defines a virtual interface on that radio
+#   option names map to hostapd/wpa_supplicant directives internally
+
+# ============================================================================
+# radio0: Broadcom brcmfmac (internal RPi3B+ WiFi, phy0)
+# Purpose: WPA2-PSK access point for SSH management
+# ============================================================================
+config wifi-device 'radio0'
+	option type 'mac80211'
+	option path 'platform/soc/3f300000.mmcnr/mmc_host/mmc1/mmc1:0001/mmc1:0001:1'
+	option channel '6'
+	option band '2g'
+	option htmode 'HT20'
+	option disabled '0'
+
+config wifi-iface 'ap0'
+	option device 'radio0'
+	option network 'lan'
+	option mode 'ap'
+	option ssid 'rpi-ssh-ap'
+	option encryption 'psk2'
+	option key 'CHANGEME_BEFORE_BUILD'
+
+# ============================================================================
+# radio1: MediaTek MT7601U (external USB adapter, phy1)
+# Purpose: Packet capture via hcxdumptool — NOT managed by netifd
+#
+# Kept disabled here. hcxdumptool puts the interface into monitor mode
+# directly (iw dev wlan1 set type monitor). Defining it in UCI with
+# disabled=1 prevents netifd from interfering.
+# ============================================================================
+config wifi-device 'radio1'
+	option type 'mac80211'
+	option channel '6'
+	option band '2g'
+	option htmode 'HT20'
+	option disabled '1'

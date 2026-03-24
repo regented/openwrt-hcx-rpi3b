@@ -1,0 +1,16 @@
+# Force LF line endings for all shell scripts, Makefiles, and target configs.
+# This prevents \r\n from breaking scripts on the Arch Linux build host.
+
+# Shell scripts
+*.sh text eol=lf
+
+# OpenWrt package Makefiles (tab-sensitive)
+Makefile text eol=lf
+packages/*/Makefile text eol=lf
+
+# Rootfs overlay files (deployed verbatim to the image)
+files/** text eol=lf
+
+# OpenWrt build config
+config/.config text eol=lf
+config/diffconfig text eol=lf

@@ -1,0 +1,26 @@
+# /etc/config/network — UCI network configuration
+# UCI format: each block starts with "config <type> '<name>'"
+#   "option <key> '<value>'"  sets a single value
+#   "list <key> '<value>'"    appends to a list
+# Indentation is convention only (tabs preferred).
+
+# --- Loopback ---------------------------------------------------------------
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+# --- LAN: wlan0 (brcmfmac internal WiFi) ------------------------------------
+# Static IP for the AP interface — SSH clients connect here.
+# dnsmasq hands out DHCP leases on this subnet (see /etc/config/dhcp).
+config interface 'lan'
+	option proto 'static'
+	option ipaddr '192.168.99.1'
+	option netmask '255.255.255.0'
+
+# --- Optional: eth0 (USB-Ethernet dongle) -----------------------------------
+# Uncomment if you attach a USB-Ethernet adapter for debugging.
+# config interface 'ethwan'
+#	option device 'eth0'
+#	option proto 'dhcp'

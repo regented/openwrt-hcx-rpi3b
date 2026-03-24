@@ -1,0 +1,30 @@
+# OpenSSH server configuration for OpenWrt on RPi3B+
+# Listens only on the AP interface (wlan0 / 192.168.99.1)
+
+Port 22
+AddressFamily inet
+ListenAddress 192.168.99.1
+
+# --- Authentication ---------------------------------------------------------
+PermitRootLogin yes
+PubkeyAuthentication yes
+PasswordAuthentication yes
+PermitEmptyPasswords no
+MaxAuthTries 3
+MaxSessions 4
+
+# --- Disabled features (not needed on embedded) -----------------------------
+X11Forwarding no
+AllowTcpForwarding no
+AllowAgentForwarding no
+PrintMotd no
+
+# --- Keepalive (drop stale SSH sessions) ------------------------------------
+ClientAliveInterval 60
+ClientAliveCountMax 3
+
+# --- Subsystems -------------------------------------------------------------
+Subsystem sftp /usr/lib/sftp-server
+
+# --- Logging ----------------------------------------------------------------
+LogLevel INFO

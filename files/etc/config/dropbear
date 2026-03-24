@@ -1,0 +1,10 @@
+# /etc/config/dropbear — disabled (we use OpenSSH instead)
+#
+# This file exists to ensure dropbear stays off even if the package
+# somehow gets pulled in as a dependency. The package itself is set
+# to CONFIG_PACKAGE_dropbear=n in .config.
+
+config dropbear
+	option enable '0'
+	option PasswordAuth 'off'
+	option Port '2222'
