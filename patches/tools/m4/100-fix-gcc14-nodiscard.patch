@@ -1,0 +1,16 @@
+--- a/lib/attribute.h
++++ b/lib/attribute.h
+@@ -48,8 +48,12 @@
+ /* NODISCARD tells the compiler that the return value of a function should
+    not be discarded, even if the caller casts it to void.  */
+ /* Applies to: function.  */
++/* GCC 14+ rejects _GL_ATTRIBUTE_NODISCARD on inline function definitions
++   when the attribute expands before the return type, causing:
++     error: expected identifier or '(' before 'int'
++   Disable the attribute entirely — it is advisory only.  */
+ #ifndef _GL_ATTRIBUTE_NODISCARD
+-# if _GL_HAS_ATTRIBUTE (warn_unused_result)
++# if 0 && _GL_HAS_ATTRIBUTE (warn_unused_result)
+ #  define _GL_ATTRIBUTE_NODISCARD __attribute__ ((__warn_unused_result__))
+ # else
+ #  define _GL_ATTRIBUTE_NODISCARD
